@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { css } from '@styled-system/css'
-import { UseFormProps, useForm } from "react-hook-form";
+import { FieldError, FieldErrors, SubmitErrorHandler, SubmitHandler, UseFormProps, useForm } from "react-hook-form";
+import { Input } from '@/components/Input';
 
 export interface BasicFormProps extends UseFormProps {
 }
@@ -8,36 +9,40 @@ export interface BasicFormProps extends UseFormProps {
 type FormValues = {
   firstName: string;
   lastName: string;
+  email: string;
 }
 
 export const BasicForm: React.FC<BasicFormProps> = () => {
-  const [formValues, setFormValues] = useState();
-  const [errorValues, setErrorValues] = useState();
+  const [formValues, setFormValues] = useState<FormValues>();
+  const [errorValues, setErrorValues] = useState<FieldErrors<FormValues>>();
 
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors } } = useForm<FormValues>({
-      // Default values below:
-      mode: 'onSubmit',
-      reValidateMode: 'onChange',
-      defaultValues: {},
-      resolver: undefined,
-      context: undefined,
-      criteriaMode: "firstError",
-      shouldFocusError: true,
-      shouldUnregister: false,
-      shouldUseNativeValidation: false,
-      delayError: undefined
-    });
+    formState: {
+      errors
+    }
+  } = useForm<FormValues>({
+    // Default values below:
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
+    defaultValues: {},
+    resolver: undefined,
+    context: undefined,
+    criteriaMode: "firstError",
+    shouldFocusError: true,
+    shouldUnregister: false,
+    shouldUseNativeValidation: false,
+    delayError: undefined
+  });
 
-  const onSubmit = (data: any) => {
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(data)
     setFormValues(data)
   };
 
-  const onError = (data: any) => {
+  const onError: SubmitErrorHandler<FormValues> = (data) => {
     console.log(data)
     setErrorValues(data)
   };
@@ -47,7 +52,6 @@ export const BasicForm: React.FC<BasicFormProps> = () => {
       <form
         onSubmit={handleSubmit(onSubmit, onError)}
         className={css({
-          fontSize: '4xl',
           display: 'flex',
           flexDirection: 'column',
           '& > input': {
@@ -56,18 +60,37 @@ export const BasicForm: React.FC<BasicFormProps> = () => {
           }
         })}
       >
-        <label htmlFor="firstName">First Name</label>
-        <input 
-          {...register(
-            'firstName',
-            { required: 'First Name is required' }
-          )}
+        <Input
+          label="Email"
+          name="email"
+          registerReturnValue={register(
+            'email',
+            {
+              required: 'Email is required'
+            })}
         />
-        <label htmlFor="lastName">Last Name</label>
-        <input {...register('lastName')} />
+        <Input
+          label="First Name"
+          name="firstName"
+          registerReturnValue={register(
+            'firstName',
+            {
+              required: 'First Name is required'
+            })}
+        />
+        <Input
+          label="Last Name"
+          name="lastName"
+          registerReturnValue={register(
+            'lastName',
+            {
+              required: 'Last Name is required'
+            })}
+        />
         <input
           className={css({
-            bg: 'blue.500'
+            bg: 'blue.500',
+            rounded: 'md'
           })}
           type="submit"
           value="Submit"
