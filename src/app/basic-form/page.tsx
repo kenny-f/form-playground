@@ -1,10 +1,4 @@
-import React from 'react'
-
-const BasicForm: React.FC = () => {
-  console.log
-  return (
-    <div>hello</div>
-  )
-}
+'use client'
+import { BasicForm } from './BasicForm';
 
 export default BasicForm;
