@@ -26,6 +26,7 @@
     "typescript": "5.2.2"
   },
   "devDependencies": {
+    "@pandacss/dev": "^0.15.1",
     "@storybook/addon-essentials": "^7.4.5",
     "@storybook/addon-interactions": "^7.4.5",
     "@storybook/addon-links": "^7.4.5",
