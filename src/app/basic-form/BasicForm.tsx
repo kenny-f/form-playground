@@ -14,7 +14,6 @@ type FormValues = {
 
 export const BasicForm: React.FC<BasicFormProps> = () => {
   const [formValues, setFormValues] = useState<FormValues>();
-  const [errorValues, setErrorValues] = useState<FieldErrors<FormValues>>();
 
   const {
     register,
@@ -44,7 +43,6 @@ export const BasicForm: React.FC<BasicFormProps> = () => {
 
   const onError: SubmitErrorHandler<FormValues> = (data) => {
     console.log(data)
-    setErrorValues(data)
   };
 
   return (
@@ -54,38 +52,43 @@ export const BasicForm: React.FC<BasicFormProps> = () => {
         className={css({
           display: 'flex',
           flexDirection: 'column',
-          '& > input': {
+          '& > *': {
             mb: '12',
-            border: '1px solid grey',
           }
         })}
       >
         <Input
           label="Email"
+          placeholder="Email"
           name="email"
           registerReturnValue={register(
             'email',
             {
               required: 'Email is required'
             })}
+          errors={errors}
         />
         <Input
           label="First Name"
+          placeholder="First Name"
           name="firstName"
           registerReturnValue={register(
             'firstName',
             {
               required: 'First Name is required'
             })}
+          errors={errors}
         />
         <Input
           label="Last Name"
+          placeholder="Last Name"
           name="lastName"
           registerReturnValue={register(
             'lastName',
             {
               required: 'Last Name is required'
-            })}
+            })} 
+          errors={errors}
         />
         <input
           className={css({

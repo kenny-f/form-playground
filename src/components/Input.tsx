@@ -1,6 +1,7 @@
+import { ErrorMessage } from '@hookform/error-message';
 import { css } from '@styled-system/css';
 import React from 'react'
-import { DeepMap, FieldError, FieldValues, Path, RegisterOptions, UseFormRegister, UseFormRegisterReturn } from 'react-hook-form';
+import { DeepMap, FieldError, FieldValues, Path, UseFormRegisterReturn } from 'react-hook-form';
 
 type InputProps<TFormValues extends FieldValues> = {
   label?: string;
@@ -20,7 +21,13 @@ export const Input = <TFormValues extends FieldValues>({
 }: InputProps<TFormValues>
 ): JSX.Element => {
   return (
-    <React.Fragment>
+    <div
+      data-id="input-wrapper"
+      className={css({
+        display: 'flex',
+        flexDirection: 'column'
+      })}
+    >
       <label htmlFor={name}>{label}</label>
       <input
         type="text"
@@ -28,11 +35,26 @@ export const Input = <TFormValues extends FieldValues>({
         {...registerReturnValue}
         className={css({
           border: '1px solid grey',
-          rounded: 'md'
+          rounded: 'md',
+          px: '4',
         }) 
       }
       />
+      <ErrorMessage
+        name={name as any}
+        errors={errors}
+        render={({message}) => (
+          <p
+            className={css({
+              color: 'red.500',
+              fontSize: 'xs'
+            })}
+          >
+            {message}
+          </p>
+        )}
+      />
       {/* {errors[name]?.message && (<p>{errors.[name].message}</p>)} */}
-    </React.Fragment>
+    </div>
   )
 }
