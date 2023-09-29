@@ -54,7 +54,6 @@ export const Input = <TFormValues extends FieldValues>({
           </p>
         )}
       />
-      {/* {errors[name]?.message && (<p>{errors.[name].message}</p>)} */}
     </div>
   )
 }
