@@ -12,7 +12,9 @@ type FormValues = {
   email: string;
 }
 
-export const BasicForm: React.FC<BasicFormProps> = () => {
+export const BasicForm: React.FC<BasicFormProps> = ({
+  mode = 'onSubmit',
+}) => {
   const [formValues, setFormValues] = useState<FormValues>();
 
   const {
@@ -23,8 +25,7 @@ export const BasicForm: React.FC<BasicFormProps> = () => {
       errors
     }
   } = useForm<FormValues>({
-    // Default values below:
-    mode: 'onSubmit',
+    mode,
     reValidateMode: 'onChange',
     defaultValues: {},
     resolver: undefined,

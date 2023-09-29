@@ -5,7 +5,9 @@ import { BasicForm } from './BasicForm';
 const meta = {
   title: 'BasicForm',
   component: BasicForm,
-  args: {},
+  args: {
+    mode: 'onSubmit'
+  },
 } satisfies Meta<typeof BasicForm>;
 export default meta;
 type Story = StoryObj<typeof meta>;
