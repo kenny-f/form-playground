@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import { css } from '@styled-system/css'
-import { FieldError, FieldErrors, SubmitErrorHandler, SubmitHandler, UseFormProps, useForm } from "react-hook-form";
+import { 
+  type SubmitErrorHandler,
+  type SubmitHandler, 
+  type UseFormProps,
+  useForm 
+} from "react-hook-form";
 import { Input } from '@/components/Input';
 
 export interface BasicFormProps extends UseFormProps {
